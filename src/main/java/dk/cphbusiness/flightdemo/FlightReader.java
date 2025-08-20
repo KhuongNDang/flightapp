@@ -22,7 +22,34 @@ public class FlightReader {
         try {
             List<FlightDTO> flightList = getFlightsFromFile("flights.json");
             List<FlightInfoDTO> flightInfoDTOList = getFlightInfoDetails(flightList);
-            flightInfoDTOList.forEach(System.out::println);
+
+
+            long totalMinutes = flightInfoDTOList.stream()
+                    .filter(f -> "Aeroflot".equals(f.getAirline()))
+                    .map(FlightInfoDTO::getDuration)
+                    .mapToLong(Duration::toMinutes)
+                    .sum();
+
+            System.out.println("Total minutes: " + totalMinutes);
+
+            System.out.println();
+
+
+            //Task 1
+            double averageTime = flightInfoDTOList.stream()
+                    .filter(f -> "Aeroflot".equals(f.getAirline()))
+                    .map(FlightInfoDTO::getDuration)
+                    .mapToLong(Duration::toMinutes)
+                    .average()
+                    .orElse(0); // in case there are no flights
+
+            System.out.println("Average time: " + averageTime);
+
+
+
+//            flightInfoDTOList.forEach(System.out::println);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

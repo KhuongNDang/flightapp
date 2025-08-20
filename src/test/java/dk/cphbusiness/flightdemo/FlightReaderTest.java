@@ -30,6 +30,7 @@ class FlightReaderTest {
         try {
             List<FlightDTO> flightList = writer.writeFlightsToFile(1, 10);
             assertEquals(10, flightList.size());
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -43,6 +44,7 @@ class FlightReaderTest {
             List<FlightDTO> flights = reader.getFlightsFromFile("flights.json");
             List<FlightInfoDTO> flightInfoList = reader.getFlightInfoDetails(flights);
             assertEquals("Royal Jordanian", flightInfoList.get(0).getAirline());
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
